@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <algorithm>
 #include <ctime>
 #include <regex>
@@ -7,7 +7,9 @@ using namespace std;
 
 class String
 {
+public:
 	char* text = nullptr;
+private:
 	unsigned int length = 0;
 	unsigned int capacity = 80;
 
@@ -26,7 +28,7 @@ public:
 		SetString(text, capacity);
 	}
 
-private:
+public:
 	void SetString(const char* text, unsigned int capacity = 80)
 	{
 		length = strlen(text);
@@ -60,7 +62,6 @@ private:
 		strcpy_s(this->text, length + 1, text);
 	}
 
-public:
 	~String()
 	{
 		if (text != nullptr)
@@ -329,11 +330,56 @@ public:
 	}
 };
 
+bool operator < (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) < 0;
+}
+
+bool operator > (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) > 0;
+}
+
+bool operator <= (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) <= 0;
+}
+
+bool operator >= (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) >= 0;
+}
+
+bool operator != (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) != 0;
+}
+
+bool operator == (const String& a, const String& b)
+{
+	return strcmp(a.text, b.text) == 0;
+}
+
+istream& operator>>(istream& i, String& str)
+{
+	cout << "Enter text: ";
+	char txt[100];
+	i.getline(txt, sizeof(txt));
+	str.SetString(txt);
+	return i;
+}
+
+ostream& operator<<(ostream& i, const String& str)
+{
+	cout << str.GetString();
+	return cout;
+}
+
 int main()
 {
-	srand(time(NULL));
+	/*srand(time(NULL));
 	String a("Alex. ");
-	String b("ITSTEP .");
+	String b("ITSTEP .");*/
 
 	//введенние с клавиатуры
 	/*String c;
@@ -348,8 +394,8 @@ int main()
 	cout << "Contains STEP: " << a.Contains(substr) << "\n";*/
 	
 	//тест Concat
-	a.Concat(b);
-	a.Print();
+	/*a.Concat(b);
+	a.Print();*/
 
 	// тест EndsWith и StartsWith
 	/*String endTest("ITSTEP .");
@@ -387,4 +433,42 @@ int main()
 
 	//тест RandomFill
 	/*a.RandomFill();*/
+
+	///////////
+
+	/*String a("A");
+	String b("Alex");
+	if (a == b)
+	{
+		cout << "==\n";
+	}
+
+	if (a > b)
+	{
+		cout << ">\n";
+	}
+
+	if (a < b)
+	{
+		cout << "<\n";
+	}
+
+	if (a >= b)
+	{
+		cout << ">=\n";
+	}
+
+	if (a <= b)
+	{
+		cout << "<=\n";
+	}
+
+	if (a != b)
+	{
+		cout << "!=\n";
+	}*/
+
+	String s;
+	cin >> s;
+	cout << s;
 }
